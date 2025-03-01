@@ -19,6 +19,7 @@ const buttonVariants = cva(
           "bg-secondary text-secondary-foreground shadow-xs hover:bg-secondary/80",
         ghost: "hover:bg-accent hover:text-accent-foreground",
         link: "text-primary underline-offset-4 hover:underline",
+        success: "bg-emerald-500 text-white"
       },
       size: {
         default: "h-9 px-4 py-2 has-[>svg]:px-3",
@@ -49,7 +50,7 @@ function Button({
   return (
     <Comp
       data-slot="button"
-      className={cn(buttonVariants({ variant, size, className }), "cursor-pointer shadow-md shadow-black/50")}
+      className={"hover:opacity-90 " + cn(buttonVariants({ variant, size, className }), "cursor-pointer shadow-md shadow-black/50")}
       {...props}
     />
   )

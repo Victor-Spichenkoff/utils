@@ -5,7 +5,6 @@ import { HubButton } from "@/components/template/HubButton"
 
 
 export default function Home() {
-  
   return (
     <div>
       <Header>Home</Header>
@@ -13,5 +12,5 @@ export default function Home() {
         <HubButton to="/form" label="Form"/>
       </div>
     </div>
-  );
+  )
 }

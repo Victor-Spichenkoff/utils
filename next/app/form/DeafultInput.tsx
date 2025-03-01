@@ -11,25 +11,29 @@ interface IDefaultInput<TSchema extends FieldValues> {
 
 }
 
-export const DefaultInput = 
-<TSchema extends FieldValues>({form, name, placeholder, label, desc}:IDefaultInput<TSchema>) => 
-{
-    return (
-        <FormField
-            control={form.control}
-            name={name}
-            render={({ field }) => (
-                <FormItem>
-                    <FormLabel>{label}</FormLabel>
-                    <FormControl>
-                        <Input placeholder={placeholder} {...field} />
-                    </FormControl>
-                    <FormDescription>
-                        {desc}
-                    </FormDescription>
-                    <FormMessage />
-                </FormItem>
-            )}
-        />
-    )
-}
+export const DefaultInput =
+    <TSchema extends FieldValues>({ form, name, placeholder, label, desc }: IDefaultInput<TSchema>) => {
+        return (
+            <div className="w-fit">
+                <FormField
+                    control={form.control}
+                    name={name}
+                    render={({ field }) => (
+                        <FormItem>
+                            <FormLabel>{label}</FormLabel>
+                            <FormControl>
+                                <Input
+                                    placeholder={placeholder}
+                                    {...field}
+                                />
+                            </FormControl>
+                            <FormDescription>
+                                {desc}
+                            </FormDescription>
+                            <FormMessage />
+                        </FormItem>
+                    )}
+                />
+            </div>
+        )
+    }

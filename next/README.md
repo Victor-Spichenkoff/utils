@@ -13,7 +13,7 @@
 
 ## ShadCn
 ``npx shadcn@latest init``
-- **Modifiquei**: Button (shadow e pointer)
+- **Modifiquei**: Button (shadow e pointer; opacity no hover)
 
 ## Form + shad + zod
 - infos na page
