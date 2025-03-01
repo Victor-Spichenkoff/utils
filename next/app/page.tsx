@@ -1,27 +1,17 @@
 "use client"
 
-import { getTodos } from "@/services/handleApiCall"
-import axios from "axios"
-import { useEffect, useState } from "react"
-import { toast } from "sonner"
+import { Header } from "@/components/template/header"
+import { HubButton } from "@/components/template/HubButton"
+
 
 export default function Home() {
-
-  const [res, setRes] = useState("")
-
-  useEffect(()=> {
-    (async () => {
-      const res = await getTodos()
-
-      if(!res.isError)
-        return setRes(`[${res.response.id}] ${res.response.title}`)
-    })()
-  }, [])
-
-
+  
   return (
     <div>
-      Resposeta: {res}
+      <Header>Home</Header>
+      <div className="flex flex-col gap-3">
+        <HubButton to="/form" label="Form"/>
+      </div>
     </div>
   );
 }
