@@ -31,6 +31,11 @@ export const GetSafeType = <T>(tag: SelectableStore) => {
     }
 }
 
+// para ser automático
+export const GetTestWithSafeType = () => {
+    return GetSafeType<ITestStorage>("test")
+}
+
 
 export const ChangeStorageTest = (newThing: ITestStorage) => {
     localStorage.setItem(key_test, JSON.stringify(newThing))
