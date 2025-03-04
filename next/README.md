@@ -17,3 +17,10 @@
 
 ## Form + shad + zod
 - infos na page
+
+
+## Lib
+- With all providers
+- localstorage
+    - How to make
+    - Type safety and reusability
