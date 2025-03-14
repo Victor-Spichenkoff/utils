@@ -6,24 +6,30 @@ const baseUrl = "https://jsonplaceholder.typicode.com"
 
 // demonstração
 export const getTodos = async () => {
-// lembrar de passar o tipo de retorno
+    // lembrar de passar o tipo de retorno
 
     //com callback    
     // return await handleApiCallWithCallBack<To_Do>(async () => await axios("https://jsonplaceholder.typicode.com/todos/1"))
 
 
     //com reaproveitando a que usa callback (manutenção melhor)
-    // return await handleApiCall2<To_Do>({
-    //     endpoint: "/todos/1",
-    //     method: "get",
-    // })
+    return await handleApiCall2<To_Do, To_Do>({
+        endpoint: "/todos/1",
+        method: "post",
+        body: {
+            completed: false,
+            id: 12,
+            title: "Title",
+            userId: 1
+        }
+    })
 
 
     // só com objeto
-    return await handleApiCall<To_Do>({
-        endpoint: "/todos/1",
-        //method eu coloque default GET
-    })
+    // return await handleApiCall<To_Do>({
+    //     endpoint: "/todos/1",
+    //     //method eu coloque default GET
+    // })
 
 
     // com erro já mostrado (usa a versão só com obj de config):
@@ -37,7 +43,7 @@ export const getTodos = async () => {
 // TReturn -> garante que o tipo será certo, eu devo passar
 
 const handleApiCallWithCallBack = async <TReturn>
-(apiCall: () => Promise<AxiosResponse<TReturn>>): Promise<GenericApiResponse<TReturn>> => {
+    (apiCall: () => Promise<AxiosResponse<TReturn>>): Promise<GenericApiResponse<TReturn>> => {
 
     try {
         const res = await apiCall()
@@ -65,14 +71,14 @@ const handleApiCallWithCallBack = async <TReturn>
 
 
 // essa reaproveita e usa o com callBack (auto-updated)
-export const handleApiCall2 = async <TReturn>
-    ({ endpoint, method = "get", body, fullUrl, config }: IHanleApiCall): Promise<GenericApiResponse<TReturn>> => {
+export const handleApiCall2 = async <TReturn, TBody>
+    ({ endpoint, method = "get", body, fullUrl, config }: IHanleApiCall<TBody>): Promise<GenericApiResponse<TReturn>> => {
 
     //simula uma requi usando essas infos
     const query = async () => {
         let res;
         if (fullUrl)
-            res = await axios[method](fullUrl, body,config)
+            res = await axios[method](fullUrl, body, config)
         else
             res = await axios[method](baseUrl + endpoint, body, config)
         return res
@@ -83,7 +89,7 @@ export const handleApiCall2 = async <TReturn>
 
 
 // recebe objeto de config
-export const handleApiCall = async <TReturn>
+export const handleApiCall = async <TReturn, TBody = any>
     ({ endpoint, method = "get", body, fullUrl }: IHanleApiCall): Promise<GenericApiResponse<TReturn>> => {
 
     try {
@@ -106,7 +112,7 @@ export const handleApiCall = async <TReturn>
                 isError: true,
                 errorMessage: `ERROR: ${e.response?.data}`
             }
-        else if(isAxiosError(e)) {
+        else if (isAxiosError(e)) {
             showErroOnConosle(e, endpoint ?? fullUrl)
 
             return {
@@ -123,11 +129,12 @@ export const handleApiCall = async <TReturn>
     }
 }
 
+
 // Retorna tudo normal, mas já dá um toast de erro
 export const handleApiCallAndShowError = async <TReturn>
     ({ endpoint, method = "get", body, fullUrl }: IHanleApiCall): Promise<GenericApiResponse<TReturn>> => {
 
-        // pode escolher qual das fn vai usar
+    // pode escolher qual das fn vai usar
     const res = await handleApiCall<TReturn>({
         endpoint, method, body, fullUrl
     })
@@ -161,10 +168,10 @@ type GenericApiResponse<T> = {
 }
 
 // parametro de config para a api
-type IHanleApiCall = {
+type IHanleApiCall<TBody = any> = {
     fullUrl?: string
     endpoint: `/${string}`
     method?: "get" | "post" | "put" | "delete" | "patch"
-    body?: any,
+    body?: TBody,// para poder ter auto complete nele se quiser
     config?: AxiosRequestConfig
 }
