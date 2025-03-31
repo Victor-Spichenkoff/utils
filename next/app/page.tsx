@@ -10,6 +10,7 @@ export default function Home() {
       <Header>Home</Header>
       <div className="flex flex-col gap-3">
         <HubButton to="/form" label="Form"/>
+        <HubButton to="/darkMode" label="Dark/Light Mode"/>
       </div>
     </div>
   )
