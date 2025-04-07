@@ -8,6 +8,8 @@
 ## Components
 - Code segmented for each page
 - template -> general usage, header, footer...
+- /connection/connectionTest
+    - Show message and try to start the server
 - **Other files** are inside their page folder
     - eg. /app/form/zod/loginSchema.ts
 
