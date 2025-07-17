@@ -76,12 +76,19 @@ export const handleApiCall2 = async <TReturn, TBody>
 
     //simula uma requi usando essas infos
     const query = async () => {
-        let res;
+        if (method == "get" || (method=="delete" && !body)) {// he doesn't use body
+            if (fullUrl)
+                return await axios[method](fullUrl, config)
+            else {
+                return await axios[method](baseUrl + endpoint, config)
+            }
+        }
+        // POST..., usam 3 args
         if (fullUrl)
-            res = await axios[method](fullUrl, body, config)
-        else
-            res = await axios[method](baseUrl + endpoint, body, config)
-        return res
+            return await axios[method](fullUrl, body, config)
+        else {
+            return await axios[method](baseUrl + endpoint, body, config)
+        }
     }
 
     return await handleApiCallWithCallBack(query)
